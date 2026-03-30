@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>自己紹介 - 横松</title>
+  <title>自己紹介 - 廖　春文</title>
   <style>
     * {
       margin: 0;
@@ -99,6 +99,10 @@
     <a href="links.html">リンク集</a>
   </nav>
 
+<div style="text-align:center; margin-bottom:20px; font-size:18px; font-weight:bold; color:#667eea;">
+  🎯 このページのアクセス数：<span id="visitCount">0</span> 回
+</div>
+
   <div class="container">
     <div class="profile">
       <img src="https://images.unsplash.com/photo-1587925591897-27307b66bd5e?w=400&h=400&fit=crop" alt="プロフィール画像">
@@ -125,5 +129,24 @@
   <footer>
     <p>&copy; 2026 横松 - All Rights Reserved</p>
   </footer>
+<script>
+  function updateVisitCount() {
+    let visitCount = localStorage.getItem('visitCount_about');
+
+    if (visitCount === null) {
+      visitCount = 1;
+    } else {
+      visitCount = parseInt(visitCount) + 1;
+    }
+
+    localStorage.setItem('visitCount_about', visitCount);
+
+    document.getElementById('visitCount').textContent = visitCount;
+  }
+
+  window.addEventListener('load', updateVisitCount);
+</script>
+
 </body>
 </html>
+
