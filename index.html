@@ -94,7 +94,11 @@
     <a href="about.html">自己紹介</a>
     <a href="links.html">リンク集</a>
   </nav>
-
+  
+  <div class="counter">
+    🎯 このページのアクセス数：<span id="visitCount">0</span> 回
+  </div>
+  
   <div class="container">
     <h1>👋 ようこそ　廖　春文のHPへ</h1>
     <p>このサイトへお越しいただき、ありがとうございます。</p>
@@ -112,27 +116,33 @@
     <p>&copy; 2026 廖　春文 - All Rights Reserved</p>
   </footer>
 
-  <script>
-    // ページロード時にアクセス数をカウント
-    window.addEventListener('load', function() {
-      // localStorageからアクセス数を取得（なければ0）
-      let views = localStorage.getItem('pageViews');
-      
-      if (views === null) {
-        views = 0;
-      } else {
-        views = parseInt(views);
-      }
-      
-      // アクセス数をインクリメント
-      views++;
-      
-      // localStorageに保存
-      localStorage.setItem('pageViews', views);
-      
-      // ページに表示
-      document.getElementById('pageViews').textContent = views;
-    });
-  </script>
+ <script>
+function updateCounter() {
+  const el = document.getElementById("visitCount");
+  if (!el) return;
+
+  // localStorage確認
+  if (!window.localStorage) {
+    el.textContent = "未対応";
+    return;
+  }
+
+  let count = localStorage.getItem("visitCount_about");
+
+  if (!count) {
+    count = 1;
+  } else {
+    count = parseInt(count, 10) + 1;  // 第2引数で基数   明示的に指定
+  }
+
+  // 数値を文字列に変換して保存
+  localStorage.setItem("visitCount_about", String(count));
+  el.textContent = count;
+}
+
+// 確実に実行
+window.addEventListener("load", updateCounter);
+</script>
+  
 </body>
 </html>
