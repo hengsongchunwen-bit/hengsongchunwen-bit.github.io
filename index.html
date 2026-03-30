@@ -113,11 +113,16 @@
   </footer>
   
 <script>
+let counterExecuted = false; // ← 追加（重複防止）
+
 function updateCounter() {
+  if (counterExecuted) return; // ← 2回目以降は無視
+  counterExecuted = true;
+
   const el = document.getElementById("visitCount");
   if (!el) return;
 
-  // ここで「index.html」のみカウント
+  // index.htmlのみカウント
   if (location.pathname.includes("index.html") || location.pathname === "/") {
     let count = localStorage.getItem("visitCount_total");
 
@@ -127,17 +132,16 @@ function updateCounter() {
       count = parseInt(count, 10) + 1;
     }
 
-    // localStorageに保存
     localStorage.setItem("visitCount_total", count);
     el.textContent = count;
   } else {
-    // index.html以外では表示のみ
     const saved = localStorage.getItem("visitCount_total") || 0;
     el.textContent = saved;
   }
 }
 
-window.addEventListener("load", updateCounter);
+// loadではなく1回だけ確実に実行
+document.addEventListener("DOMContentLoaded", updateCounter);
 </script>
   
 </body>
