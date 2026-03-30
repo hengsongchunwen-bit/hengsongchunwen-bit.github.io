@@ -56,6 +56,24 @@
       margin-bottom: 15px;
       font-size: 16px;
     }
+    .counter {
+      text-align: center;
+      margin-top: 30px;
+      padding: 15px;
+      background-color: #f0f0f0;
+      border-radius: 5px;
+      border-left: 4px solid #667eea;
+    }
+    .counter p {
+      font-size: 14px;
+      color: #666;
+      margin-bottom: 5px;
+    }
+    .counter-number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #667eea;
+    }
     footer {
       text-align: center;
       padding: 20px;
@@ -83,10 +101,38 @@
     <p>JCN副主事の廖です。</p>
     <p>このサイトでは、自己紹介やリンク集をご紹介しています。</p>
     <p>各ページをご覧ください。</p>
+    
+    <div class="counter">
+      <p>このページへのアクセス数：</p>
+      <div class="counter-number" id="pageViews">0</div>
+    </div>
   </div>
 
   <footer>
     <p>&copy; 2026 廖　春文 - All Rights Reserved</p>
   </footer>
+
+  <script>
+    // ページロード時にアクセス数をカウント
+    window.addEventListener('load', function() {
+      // localStorageからアクセス数を取得（なければ0）
+      let views = localStorage.getItem('pageViews');
+      
+      if (views === null) {
+        views = 0;
+      } else {
+        views = parseInt(views);
+      }
+      
+      // アクセス数をインクリメント
+      views++;
+      
+      // localStorageに保存
+      localStorage.setItem('pageViews', views);
+      
+      // ページに表示
+      document.getElementById('pageViews').textContent = views;
+    });
+  </script>
 </body>
 </html>
