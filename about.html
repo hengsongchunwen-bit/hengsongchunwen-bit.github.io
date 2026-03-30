@@ -115,15 +115,16 @@ function updateCounter() {
   if (!count) {
     count = 1;
   } else {
-    count = parseInt(count) + 1;
+    count = parseInt(count, 10) + 1;  // 第2引数で基数   明示的に指定
   }
 
-  localStorage.setItem("visitCount_about", count);
+  // 数値を文字列に変換して保存
+  localStorage.setItem("visitCount_about", String(count));
   el.textContent = count;
 }
 
 // 確実に実行
-window.onload = updateCounter;
+window.addEventListener("load", updateCounter);
 </script>
 
 </body>
