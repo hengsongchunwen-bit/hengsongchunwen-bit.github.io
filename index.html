@@ -111,32 +111,32 @@
   <footer>
     <p>&copy; 2026 廖　春文 - All Rights Reserved</p>
   </footer>
-
- <script>
+  
+<script>
 function updateCounter() {
   const el = document.getElementById("visitCount");
   if (!el) return;
 
-  // localStorage確認
-  if (!window.localStorage) {
-    el.textContent = "未対応";
+  // 🔴 index.htmlのときだけカウント
+  if (!location.pathname.includes("index.html") && location.pathname !== "/") {
+    // 表示だけ（増やさない）
+    const saved = localStorage.getItem("visitCount_total") || 0;
+    el.textContent = saved;
     return;
   }
 
-  let count = localStorage.getItem("visitCount_about");
+  let count = localStorage.getItem("visitCount_total");
 
   if (!count) {
     count = 1;
   } else {
-    count = parseInt(count, 10) + 1;  // 第2引数で基数   明示的に指定
+    count = parseInt(count, 10) + 1;
   }
 
-  // 数値を文字列に変換して保存
-  localStorage.setItem("visitCount_about", String(count));
+  localStorage.setItem("visitCount_total", count);
   el.textContent = count;
 }
 
-// 確実に実行
 window.addEventListener("load", updateCounter);
 </script>
   
