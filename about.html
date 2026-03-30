@@ -130,21 +130,24 @@
     <p>&copy; 2026 横松 - All Rights Reserved</p>
   </footer>
 <script>
-  function updateVisitCount() {
-    let visitCount = localStorage.getItem('visitCount_about');
+document.addEventListener("DOMContentLoaded", function() {
+  let visitCount = localStorage.getItem('visitCount_about');
 
-    if (visitCount === null) {
-      visitCount = 1;
-    } else {
-      visitCount = parseInt(visitCount) + 1;
-    }
-
-    localStorage.setItem('visitCount_about', visitCount);
-
-    document.getElementById('visitCount').textContent = visitCount;
+  if (!visitCount) {
+    visitCount = 1;
+  } else {
+    visitCount = parseInt(visitCount) + 1;
   }
 
-  window.addEventListener('load', updateVisitCount);
+  localStorage.setItem('visitCount_about', visitCount);
+
+  const el = document.getElementById('visitCount');
+  if (el) {
+    el.textContent = visitCount;
+  } else {
+    console.error("visitCount要素が見つかりません");
+  }
+});
 </script>
 
 </body>
