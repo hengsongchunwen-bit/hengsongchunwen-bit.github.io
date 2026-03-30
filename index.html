@@ -117,24 +117,24 @@ function updateCounter() {
   const el = document.getElementById("visitCount");
   if (!el) return;
 
-  // 🔴 index.htmlのときだけカウント
-  if (!location.pathname.includes("index.html") && location.pathname !== "/") {
-    // 表示だけ（増やさない）
+  // ここで「index.html」のみカウント
+  if (location.pathname.includes("index.html") || location.pathname === "/") {
+    let count = localStorage.getItem("visitCount_total");
+
+    if (!count) {
+      count = 1;
+    } else {
+      count = parseInt(count, 10) + 1;
+    }
+
+    // localStorageに保存
+    localStorage.setItem("visitCount_total", count);
+    el.textContent = count;
+  } else {
+    // index.html以外では表示のみ
     const saved = localStorage.getItem("visitCount_total") || 0;
     el.textContent = saved;
-    return;
   }
-
-  let count = localStorage.getItem("visitCount_total");
-
-  if (!count) {
-    count = 1;
-  } else {
-    count = parseInt(count, 10) + 1;
-  }
-
-  localStorage.setItem("visitCount_total", count);
-  el.textContent = count;
 }
 
 window.addEventListener("load", updateCounter);
